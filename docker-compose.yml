@@ -1,5 +1,6 @@
 # start from here!
 version: '3'
+
 services:
   nodeapp:
     build: .
@@ -8,3 +9,21 @@ services:
       - '3000:3000'
     volumes:
       - ./:/app
+
+    depends_on:
+      - hands-on-mongodb
+    environment:
+      - DATABASE_URL=mongodb://hands-on-mongodb:27017/myblog
+
+    container_name: 'node-crud-app'
+
+  hands-on-mongodb:
+    image: mongo
+    restart: always
+    volumes:
+      - data-volume:/data/db
+
+    container_name: 'mongodb'
+
+volumes:
+  data-volume:
