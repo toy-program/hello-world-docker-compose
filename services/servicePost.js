@@ -10,12 +10,20 @@ class PostService {
   }
 
   async getList() {
-    const list = await getPostModel().getPostList();
+    const list = await getPostModel().getList();
     return list;
   }
-  async getAPost(id) {}
-  async deleteAPost(id) {}
-  async createAPost(title, content) {}
+  async getAPost(id) {
+    const post = await getPostModel().get(id);
+    return post;
+  }
+  async deleteAPost(id) {
+    await getPostModel().delete(id);
+  }
+  async createAPost(title, content) {
+    const newPost = await getPostModel().create(title, content);
+    return newPost;
+  }
 }
 
 module.exports = new PostService();
